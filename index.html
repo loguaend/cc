@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dana Kaget Game</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZLRLv4cOzZIVLbdmYsHrGT5xTOwux8eo6TqSo_6t691jgYqIcS8HlRCZtZGrU0DUJp0s&usqp=CAU') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+    .header {
+      position: relative;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 2.5vw;
+      font-weight: bold;
+      color: white;
+      background-color: black;
+      padding: 10px 0;
+    }
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 2.5vw;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid red;
+      color: red;
+      text-shadow: 1px 1px 0 black, 2px 2px 0 black;
+      animation: typing 5s steps(50, end), blink-caret .75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: red; }
+    }
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .door {
+      width: 30vw;
+      max-width: 150px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .door:active {
+      animation: shake 0.3s;
+    }
+    @keyframes shake {
+      0% { transform: rotate(0); }
+      25% { transform: rotate(5deg); }
+      50% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+      100% { transform: rotate(0); }
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://preview.redd.it/are-these-faces-scary-enough-its-for-my-yt-series-v0-zyt7ww3ahctc1.jpg?width=1080&crop=smart&auto=webp&s=e2449c6e4a0198891ba09106c811b37345c3b439') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: opacity 1s ease-out;
+    }
+    .overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #startDoor {
+      display: block;
+      margin: 0 auto;
+    }
+    @media (max-width: 600px) {
+      .header {
+        font-size: 4vw;
+      }
+      .footer {
+        font-size: 3.5vw;
+      }
+      .door {
+        width: 40vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">AP STORE MEDIA</div>
+  <div class="overlay" id="overlay">
+    <img src="https://cdn.pixabay.com/photo/2024/10/30/18/49/ai-generated-9162382_1280.png" alt="Pintu Tengah" id="startDoor" class="door">
+  </div>
+  <div class="container" id="gameArea" style="display:none;">
+    <img src="https://cdn.pixabay.com/photo/2024/10/30/18/49/ai-generated-9162382_1280.png" alt="Pintu Kiri" class="door" id="leftDoor">
+    <img src="https://cdn.pixabay.com/photo/2024/10/30/18/49/ai-generated-9162382_1280.png" alt="Pintu Kanan" class="door" id="rightDoor">
+  </div>
+  <div class="footer">SILAHKAN PILIH PINTU YANG INGIN KALIAN LEWATI</div>
+
+  <audio id="bgSound" src="horror-background-music-302076.mp3" loop></audio>
+  <audio id="clickSound" src="door-slam-172171.mp3"></audio>
+  <audio id="typingSound" src="https://example.com/typing.mp3" autoplay></audio>
+  <audio id="welcomeSound" src="ElevenLabs_2025-04-18T16_39_15_Brian_pre_sp84_s89_sb75_se0_b_m2.mp3" autoplay></audio>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const startDoor = document.getElementById('startDoor');
+    const gameArea = document.getElementById('gameArea');
+    const bgSound = document.getElementById('bgSound');
+    const clickSound = document.getElementById('clickSound');
+
+    startDoor.addEventListener('click', () => {
+      clickSound.play();
+      startDoor.classList.add('shake');
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        gameArea.style.display = 'flex';
+        bgSound.play();
+      }, 800);
+    });
+
+    document.getElementById('leftDoor').addEventListener('click', () => {
+      clickSound.play();
+      setTimeout(() => {
+        window.location.href = 'https://www.google.com';
+      }, 600);
+    });
+
+    document.getElementById('rightDoor').addEventListener('click', () => {
+      clickSound.play();
+      setTimeout(() => {
+        window.location.href = 'https://maps.google.com';
+      }, 600);
+    });
+
+    document.body.addEventListener('click', () => {
+      if (bgSound.paused) {
+        bgSound.play();
+      }
+    });
+  </script>
+</body>
+</html>
